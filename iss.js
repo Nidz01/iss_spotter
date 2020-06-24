@@ -9,12 +9,12 @@
  */
 
 const request = require('request');
-const url = "https://api.ipify.org?format=json";
 
 const fetchMyIP = function(callback) {
-  request(url, (error, response, body) => {
+  request('https://api.ipify.org?format=json', (error, response, body) => {
     if (error) {
-      return callback(error, null);
+      callback(error, null);
+      return;
     } else if (response.statusCode !== 200) {
       const msg = `Status Code ${response.statusCode} when fetching IP. Response: ${body}`;
       callback(Error(msg), null);
@@ -28,12 +28,24 @@ const fetchMyIP = function(callback) {
 
 //API Call #2: Fetch Geo Coordinates By IP
 
-const urlForIP = 'https://ipvigilante.com/8.8.8.8'
-
 const fetchCoordsByIP = function(ip, callback) {
-  
+  request(`https://ipvigilante.com/${ip}`, (error, response, body) => {
+    if (error) {
+      callback(error, null);
+      return;
+    } else if (response.statusCode !== 200) {
+      const msg = `Status Code ${response.statusCode} when fetching geo coordinates by IP. Response: ${body}`;
+      callback(Error(msg), null);
+      return;
+    } else {
+      const data = JSON.parse(body);
+      const latitude = data['data']['latitude'];
+      const longitude = data['data']['longitude'];
+      const geoCoordinates = {latitude, longitude};
+      callback(null, geoCoordinates);
+    }
+  });
 };
-
 
 
 module.exports = { fetchMyIP, fetchCoordsByIP };
