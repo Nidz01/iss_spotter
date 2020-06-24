@@ -1,4 +1,3 @@
-
 //API Call #1: Fetch IP Address
 /**
  * Makes a single API request to retrieve the user's IP address.
@@ -27,4 +26,14 @@ const fetchMyIP = function(callback) {
   });
 };
 
-module.exports = { fetchMyIP };
+//API Call #2: Fetch Geo Coordinates By IP
+
+const urlForIP = 'https://ipvigilante.com/8.8.8.8'
+
+const fetchCoordsByIP = function(ip, callback) {
+  
+};
+
+
+
+module.exports = { fetchMyIP, fetchCoordsByIP };
