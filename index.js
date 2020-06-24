@@ -11,14 +11,12 @@ fetchMyIP((error, ip) => {
   console.log('It worked! Returned IP:' , ip);
 });
 
-const ip = '72.141.213.93';
-
-fetchCoordsByIP((ip, data) => {
+fetchCoordsByIP('72.141.213.93', (error, geoCoordinates) => {
   if (error) {
     console.log("It didn't work!" , error);
     return;
   }
-  console.log('It worked! Coordinates by IP are:' , ip);
+  console.log('Coordinates are your IP are:' ,  geoCoordinates);
 });
 
 
